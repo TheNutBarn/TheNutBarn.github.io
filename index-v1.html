@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Nut Barn LLC - Fresh Roasted Nuts & Gift Baskets</title>
+    <script>
+        window.TNB_ENV = {
+            version: 1,
+        };
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f6f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .contact-info {
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        nav {
+            background: #654321;
+            padding: 0.5rem 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: #8B4513;
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(139, 69, 19, 0.8), rgba(139, 69, 19, 0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23D2691E"/><circle cx="20" cy="20" r="3" fill="%23CD853F"/><circle cx="80" cy="30" r="2" fill="%23DEB887"/><circle cx="60" cy="70" r="2.5" fill="%23F4A460"/><circle cx="30" cy="80" r="2" fill="%23D2691E"/></svg>');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: #FF6B35;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Story Section */
+        .story {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .story h2 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        /* Products */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #FF6B35;
+            margin: 1rem 0;
+        }
+
+        .add-to-cart {
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #A0522D;
+        }
+
+        /* Cart */
+        .cart-widget {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            background: #8B4513;
+            color: white;
+            padding: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .cart-widget:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-count {
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+        }
+
+        .cart-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #8B4513;
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Order Form */
+        .order-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #8B4513;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B4513;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Schedule */
+        .schedule-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .schedule-card h3 {
+            color: #8B4513;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #654321;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-method {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            font-weight: bold;
+            color: #8B4513;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">🥜 The Nut Barn</div>
+            <div class="contact-info">
+                <div>📍 Dimondale, Michigan</div>
+                <div>📞 (517) 410-9029</div>
+                <div>✉ thenutbarnllc@gmail.com</div>
+            </div>
+        </div>
+    </div>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#" onclick="showSection('home')" class="active">Home</a></li>
+                <li><a href="#" onclick="showSection('products')">Shop</a></li>
+                <li><a href="#" onclick="showSection('schedule')">Market Schedule</a></li>
+                <li><a href="#" onclick="showSection('about')">Our Story</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!-- Cart Widget -->
+<div class="cart-widget" onclick="toggleCart()">
+    🛒 Cart <span class="cart-count" id="cart-count">0</span>
+</div>
+
+<!-- Cart Modal -->
+<div class="cart-modal" id="cart-modal">
+    <div class="cart-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>Your Cart</h2>
+            <button onclick="toggleCart()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">×</button>
+        </div>
+        <div id="cart-items"></div>
+        <div class="cart-total" id="cart-total">Total: $0.00</div>
+        <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+</div>
+
+<main class="container">
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <h1>Fresh Roasted Nuts & Gift Baskets</h1>
+            <p>Experience the nostalgic aroma and taste of fresh roasted cinnamon nuts, made with love and only 5 simple ingredients!</p>
+            <a href="#" onclick="showSection('products')" class="cta-button">Shop Now</a>
+        </div>
+
+        <div class="story">
+            <h2>Welcome to The Nut Barn</h2>
+            <p>Since August 2023, we've been bringing back the nostalgic experience of fresh roasted nuts that you remember from the mall in the 80s. What started as a retirement adventure has become a beloved part of our community, with regulars who follow our delicious aroma from event to event!</p>
+            <p>Our vegan and gluten-free cinnamon roasted nuts contain only FIVE simple ingredients and are perfect on salads, ice cream, oatmeal, or as a healthy snack on the go.</p>
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method">💳 Square</div>
+            <div class="payment-method">🎵 Venmo @nutbarn</div>
+            <div class="payment-method">💰 PayPal</div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section">
+        <h2 style="text-align: center; color: #8B4513; margin-bottom: 2rem; font-size: 2.5rem;">Our Products</h2>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <h3>6 oz Cinnamon Roasted Nuts</h3>
+                <p>Perfect for trying our delicious nuts or as a personal snack!</p>
+                <div class="price">$10.00</div>
+                <p><strong>Ingredients:</strong> Only 5 simple ingredients<br>
+                    <strong>Dietary:</strong> Vegan & Gluten-Free</p>
+                <button class="add-to-cart" onclick="addToCart('6 oz Cinnamon Roasted Nuts', 10.00, '6oz-nuts')">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <h3>8 oz Cinnamon Roasted Nuts</h3>
+                <p>Our most popular size - perfect for sharing or enjoying over several days!</p>
+                <div class="price">$15.00</div>
+                <p><strong>Ingredients:</strong> Only 5 simple ingredients<br>
+                    <strong>Dietary:</strong> Vegan & Gluten-Free</p>
+                <button class="add-to-cart" onclick="addToCart('8 oz Cinnamon Roasted Nuts', 15.00, '8oz-nuts')">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <h3>15 oz Cinnamon Roasted Nuts</h3>
+                <p>Family size bag - great for parties, events, or serious nut lovers!</p>
+                <div class="price">$23.00</div>
+                <p><strong>Ingredients:</strong> Only 5 simple ingredients<br>
+                    <strong>Dietary:</strong> Vegan & Gluten-Free</p>
+                <button class="add-to-cart" onclick="addToCart('15 oz Cinnamon Roasted Nuts', 23.00, '15oz-nuts')">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <h3>Holiday Gift Basket</h3>
+                <p>Made to order gift baskets including our roasted nuts and hot chocolate mixes!</p>
+                <div class="price">Starting at $40.00</div>
+                <p><strong>Includes:</strong> Cinnamon roasted nuts, hot chocolate mixes, and seasonal treats</p>
+                <button class="add-to-cart" onclick="addToCart('Holiday Gift Basket', 40.00, 'gift-basket')">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="section">
+        <h2 style="text-align: center; color: #8B4513; margin-bottom: 2rem; font-size: 2.5rem;">Find Us at Local Markets</h2>
+
+        <div class="schedule-card">
+            <h3>📍 Holt Farmer's Market</h3>
+            <p><strong>Location:</strong> Our permanent home base</p>
+            <p><strong>Schedule:</strong> Check our social media for current hours</p>
+            <p>Come see us at our regular spot where we've built a wonderful community of "regulars" who love our hot chocolate and fresh roasted nuts!</p>
+        </div>
+
+        <div class="schedule-card">
+            <h3>🎪 Community Events</h3>
+            <p>We book events all around the community! Follow that delicious aroma to find us at:</p>
+            <ul style="margin-left: 2rem; margin-top: 1rem;">
+                <li>Local festivals and fairs</li>
+                <li>Community gatherings</li>
+                <li>Seasonal celebrations</li>
+                <li>Private events (contact us for booking)</li>
+            </ul>
+        </div>
+
+        <div class="schedule-card">
+            <h3>📧 Stay Updated</h3>
+            <p>Want to know where we'll be next? Send us an email at <strong>thenutbarnllc@gmail.com</strong> to get added to our event notification list!</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="story">
+            <h2>Our Story</h2>
+            <p>Our story began in August 2023 when my husband and I decided to embark on a new adventure that we could eventually use to supplement our retirement income and teach our grandchildren the valuable lessons that come with owning your own business.</p>
+
+            <p>I remember these little nut stands being at the mall growing up in the 80s and you could just follow that smell from a hundred yards away, but much like the nostalgia of the drive in theatre and big name bands like REO Speedwagon at the County Fair, these little stands fell away and became harder to find outside of the annual Renaissance Fair in Michigan.</p>
+
+            <p>It took a little convincing for my husband to take this leap of faith with me but I knew he would say yes to buying this little nut stand because he's never told me "No" to anything in 26 years of marriage....so we jumped right in with both feet!</p>
+
+            <p>I found a permanent home in the Holt Farmer's Market and began booking events all around our community. Before long, we had "regulars" who would come to market just to see us for Hot Chocolate and Roasted Nuts! Organizers were then making space for us all around the community and we became the perfect edition to nearly any event!</p>
+
+            <p>People would follow the smell and say "Oh.. I am SO glad you're here!...we just LOVE these". Over time, we have come to recognize, and look forward to seeing, the friendly faces that follow and support us! We appreciate each and every one of you!</p>
+
+            <p>Our goal is to make our cinnamon roasted nuts available to anyone who wants to support our small business by ordering online. We will ship fresh product to you anywhere in the U.S. and our gift baskets make it easy to shop for that special someone and send them a healthy treat for any occasion.</p>
+
+            <p><strong>Our roasted nuts are vegan and gluten free and contain only FIVE simple ingredients! They go great on salad, ice cream, oatmeal, or just as a quick snack on the go!</strong></p>
+        </div>
+    </section>
+
+    <!-- Contact/Checkout Section -->
+    <section id="contact" class="section">
+        <h2 style="text-align: center; color: #8B4513; margin-bottom: 2rem; font-size: 2.5rem;">Contact & Orders</h2>
+
+        <div class="order-form">
+            <h3>Place Your Order</h3>
+            <form id="order-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name">First Name *</label>
+                        <input type="text" id="first-name" name="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name *</label>
+                        <input type="text" id="last-name" name="last-name" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Shipping Address *</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State *</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="zip">ZIP Code *</label>
+                        <input type="text" id="zip" name="zip" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-method">Payment Method *</label>
+                        <select id="payment-method" name="payment-method" required>
+                            <option value="">Select Payment Method</option>
+                            <option value="square">Square (Credit/Debit Card)</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="venmo">Venmo (@nutbarn)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="special-instructions">Special Instructions or Gift Message</label>
+                    <textarea id="special-instructions" name="special-instructions" rows="3"></textarea>
+                </div>
+
+                <div id="order-summary" style="background: #f0f0f0; padding: 1rem; border-radius: 5px; margin: 1rem 0;">
+                    <h4>Order Summary:</h4>
+                    <div id="summary-items">Your cart is empty</div>
+                    <div id="summary-total" style="font-weight: bold; margin-top: 0.5rem;">Total: $0.00</div>
+                </div>
+
+                <button type="submit" class="checkout-btn">Submit Order</button>
+            </form>
+
+            <div class="success-message" id="success-message">
+                <strong>Order Submitted Successfully!</strong><br>
+                Thank you for your order! We'll contact you within 24 hours to confirm payment and shipping details.
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 The Nut Barn LLC | Dimondale, Michigan | (517) 410-9029</p>
+        <p>Fresh Roasted Nuts • Vegan & Gluten-Free • Made with Love</p>
+    </div>
+</footer>
+
+<script>
+</script>
+</body>
+</html>
