@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Router</title>
+</head>
+<body>
+<script>
+    // Get URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const version = urlParams.get('v');
+
+    // Check for stored version in localStorage
+    const savedVersion = localStorage.getItem('siteVersion');
+
+    let targetVersion = 'v1'; // Default fallback
+
+    // Priority order: URL parameter > localStorage > A/B test > default
+    if (version === '1' || version === 'v1') {
+        targetVersion = 'v1';
+    } else if (version === '2' || version === 'v2') {
+        targetVersion = 'v2';
+    } else if (savedVersion === 'v1' || savedVersion === 'v2') {
+        // Use saved version if available
+        targetVersion = savedVersion;
+    } else {
+        // First-time visitor - assign version via A/B test
+        targetVersion = Math.random() < 0.5 ? 'v1' : 'v2';
+
+        // Alternative assignment methods:
+        // Time-based: targetVersion = new Date().getHours() < 12 ? 'v1' : 'v2';
+        // Mobile-first: targetVersion = /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'v2' : 'v1';
+        // Gradual rollout: targetVersion = Math.random() < 0.3 ? 'v2' : 'v1'; // 30% get v2
+    }
+
+    // Store the version choice for future visits
+    localStorage.setItem('siteVersion', targetVersion);
+
+    // Optional: Store assignment metadata for analytics
+    if (!localStorage.getItem('versionAssignedAt')) {
+        localStorage.setItem('versionAssignedAt', new Date().toISOString());
+        localStorage.setItem('versionAssignmentMethod', version ? 'url_param' : (savedVersion ? 'returning_user' : 'ab_test'));
+    }
+
+    // Redirect to the appropriate version
+    if (targetVersion === 'v1') {
+        window.location.replace('./index-v1.html');
+    } else {
+        window.location.replace('./index-v2.html');
+    }
+</script>
+
+<!-- Fallback content in case JavaScript is disabled -->
+<noscript>
+    <h1>Please enable JavaScript</h1>
+    <p>This site requires JavaScript to determine which version to display.</p>
+    <p><a href="./index-v1.html">Go to Version 1</a></p>
+    <p><a href="./index-v2.html">Go to Version 2</a></p>
+</noscript>
+
+<!-- Debug info (only shows briefly before redirect) -->
+<div id="debug" style="position: fixed; top: 10px; right: 10px; background: #f0f0f0; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 12px; z-index: 1000;">
+    <div>Loading version router...</div>
+    <div>Current stored version: <span id="currentVersion"></span></div>
+    <div>Assignment method: <span id="assignmentMethod"></span></div>
+</div>
+
+<script>
+    // Update debug info
+    document.getElementById('currentVersion').textContent = localStorage.getItem('siteVersion') || 'none';
+    document.getElementById('assignmentMethod').textContent = localStorage.getItem('versionAssignmentMethod') || 'none';
+</script>
+</body>
+</html>
